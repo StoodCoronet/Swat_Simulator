@@ -30,7 +30,6 @@ class plant:
             # self.result[0] = init
             resume_from_path(self.log_path)
 
-
     def Actuator(self, P1, P2, P3, P4, P5, P6): #
         P1.MV101.DI_ZSO = P1.MV101.DO_Open
         P1.MV101.DI_ZSC = P1.MV101.DO_Close
@@ -136,3 +135,10 @@ class plant:
 
         #print (self.result[k][0:3])
         return self.result[k][0], self.result[k][1], self.result[k][3]
+
+    def changeValueBF(self, result0, result1, result2, result3, result4, k): # Mr.Brute and Mr.Force, so BF :D
+        self.result[k + 1][0] = result0
+        self.result[k + 1][1] = result1
+        self.result[k + 1][2] = result2
+        self.result[k + 1][3] = result3
+        self.result[k + 1][4] = result4

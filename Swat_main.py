@@ -25,13 +25,14 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.StartBtn.clicked.connect(self.slotRun)
         self.StopBtn.clicked.connect(self.slotStop)
         self.StepBtn.clicked.connect(self.oneStep)
+        self.ChangeVal.clicked.connect(self.changeValue)
         #self.setLayout(layout)
 
         self.data_set = []
         self.path = "data/normal.npy"
         self.time_interval = 1
         self.log_path = ''
-        self.maxstep = 60# * 60 * 10
+        self.maxstep = 60 * 60 * 10
         # Initiating Plant
         self.Plant = plant(self.log_path, self.time_interval, self.maxstep)
         # Defining I/O
@@ -52,7 +53,7 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.PLC5 = plc5.plc5(self.HMI)
         self.PLC6 = plc6.plc6(self.HMI)
         # print ("Now starting Simulation")
-        self.timestamp=0
+        self.timestamp = 0
         self.isRunning = False
 
 
@@ -75,7 +76,7 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.LabOutput3.setText(str(Out3))
         #self.myLable.setText(str(tmp))
         QApplication.processEvents()
-        time.sleep(0.1)
+        #time.sleep(0.1)
 
     def slotRun(self):
         self.isRunning = True
@@ -94,6 +95,16 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         if self.timestamp < self.maxstep:
             self.slotAdd(self.timestamp)
             self.timestamp += 1
+
+    def changeValue(self): # I don't know what's these values, just call it result#num
+        self.isRunning = False
+        result0 = int(self.ChangeVal0.text())
+        result1 = int(self.ChangeVal1.text())
+        result2 = int(self.ChangeVal2.text())
+        result3 = int(self.ChangeVal3.text())
+        result4 = int(self.ChangeVal4.text())
+        self.Plant.changeValueBF(result0, result1, result2, result3, result4, self.timestamp)
+        self.timestamp += 1
 
 if __name__ == '__main__':
     app=QApplication(sys.argv)
