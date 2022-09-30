@@ -134,4 +134,5 @@ class plant:
         self.result[k + 1][4] = self.result[k][4] + self.h_t602 * self.time_interval
 
 
-        print (self.result[k][0:3])
+        #print (self.result[k][0:3])
+        return self.result[k][0], self.result[k][1], self.result[k][3]

@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalWidget.setGeometry(QtCore.QRect(70, 30, 581, 581))
+        self.horizontalWidget.setGeometry(QtCore.QRect(70, 30, 611, 611))
         self.horizontalWidget.setObjectName("horizontalWidget")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.horizontalWidget)
         self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -98,11 +98,25 @@ class Ui_MainWindow(object):
         self.EditInit5.setObjectName("EditInit5")
         self.horizontalLayout_3.addWidget(self.EditInit5)
         self.verticalLayout.addWidget(self.horizontalWidget5)
-        self.StartBtn = QtWidgets.QPushButton(self.verticalWidget)
+        self.horizontalWidget6 = QtWidgets.QWidget(self.verticalWidget)
+        self.horizontalWidget6.setMinimumSize(QtCore.QSize(10, 10))
+        self.horizontalWidget6.setObjectName("horizontalWidget6")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalWidget6)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.StartBtn = QtWidgets.QPushButton(self.horizontalWidget6)
         self.StartBtn.setMinimumSize(QtCore.QSize(60, 40))
         self.StartBtn.setMaximumSize(QtCore.QSize(80, 60))
         self.StartBtn.setObjectName("StartBtn")
-        self.verticalLayout.addWidget(self.StartBtn)
+        self.horizontalLayout_2.addWidget(self.StartBtn)
+        self.StopBtn = QtWidgets.QPushButton(self.horizontalWidget6)
+        self.StopBtn.setMaximumSize(QtCore.QSize(80, 60))
+        self.StopBtn.setObjectName("StopBtn")
+        self.horizontalLayout_2.addWidget(self.StopBtn)
+        self.StepBtn = QtWidgets.QPushButton(self.horizontalWidget6)
+        self.StepBtn.setMaximumSize(QtCore.QSize(80, 60))
+        self.StepBtn.setObjectName("StepBtn")
+        self.horizontalLayout_2.addWidget(self.StepBtn)
+        self.verticalLayout.addWidget(self.horizontalWidget6)
         self.horizontalLayout_7.addWidget(self.verticalWidget)
         self.verticalWidget1 = QtWidgets.QWidget(self.horizontalWidget)
         self.verticalWidget1.setMinimumSize(QtCore.QSize(300, 20))
@@ -135,11 +149,43 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.LabInit1.setText(_translate("MainWindow", "Init 1"))
+        self.EditInit1.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">505</p></body></html>"))
         self.LabInit2.setText(_translate("MainWindow", "Init 2"))
+        self.EditInit2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">890</p></body></html>"))
         self.LabInit3.setText(_translate("MainWindow", "Init 3"))
+        self.EditInit3.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">900</p></body></html>"))
         self.LabInit4.setText(_translate("MainWindow", "Init 4"))
+        self.EditInit4.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">200</p></body></html>"))
         self.LabInit5.setText(_translate("MainWindow", "Init 5"))
+        self.EditInit5.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">200</p></body></html>"))
         self.StartBtn.setText(_translate("MainWindow", "Run"))
+        self.StopBtn.setText(_translate("MainWindow", "Stop"))
+        self.StepBtn.setText(_translate("MainWindow", "Step"))
         self.LabOutput1.setText(_translate("MainWindow", "Output1"))
         self.LabOutput2.setText(_translate("MainWindow", "Output2"))
         self.LabOutput3.setText(_translate("MainWindow", "Output3"))
