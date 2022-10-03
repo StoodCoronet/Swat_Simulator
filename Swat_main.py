@@ -8,8 +8,11 @@ from plant.plant import plant
 import SWaT
 
 from PyQt5.QtWidgets import QWidget,QPushButton,QApplication,QListWidget,QGridLayout, QLabel, QMainWindow
+from PyQt5.QtGui import QPainter
+from PyQt5.QtChart import QChart, QChartView, QLineSeries
 import time
 class WinForm(QMainWindow, SWaT.Ui_MainWindow):
+    window = []
     def __init__(self, parent=None):
         super(WinForm, self).__init__(parent)
         self.setupUi(self)
@@ -27,6 +30,8 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.StepBtn.clicked.connect(self.oneStep)
         self.ChangeVal.clicked.connect(self.changeValue)
         #self.setLayout(layout)
+
+        self.createChart()
 
         self.data_set = []
         self.path = "data/normal.npy"
@@ -64,6 +69,7 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.Plant.Actuator(self.IO_P1, self.IO_P2, self.IO_P3, self.IO_P4, self.IO_P5, self.IO_P6)
         Out1, Out2, Out3 = self.Plant.Plant(self.IO_P1, self.IO_P2, self.IO_P3, self.IO_P4, self.IO_P5, self.IO_P6, time_t, self.HMI)
         # #PLC working
+        self.addLineSeries(time_t, Out1)
         self.PLC1.Pre_Main_Raw_Water(self.IO_P1, self.HMI)
         self.PLC2.Pre_Main_UF_Feed_Dosing(self.IO_P2, self.HMI)
         self.PLC3.Pre_Main_UF_Feed(self.IO_P3, self.HMI, Sec_P, Min_P)
@@ -77,8 +83,14 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         #self.myLable.setText(str(tmp))
         QApplication.processEvents()
         #time.sleep(0.1)
+        if time_t == self.maxstep-1:
+            self.isRunning = False
+            self.timestamp = 0
+            self.drawChart()
 
     def slotRun(self):
+        if self.timestamp == 0:
+            self.maxstep = int(self.MaxStepVal.text())
         self.isRunning = True
         while self.timestamp < self.maxstep:
             if self.isRunning:
@@ -105,6 +117,41 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         result4 = int(self.ChangeVal4.text())
         self.Plant.changeValueBF(result0, result1, result2, result3, result4, self.timestamp)
         self.timestamp += 1
+
+    def createChart(self):
+        self.lineSeries = QLineSeries()
+        '''
+        chart = QChart()
+        chart.legend().hide()
+        chart.addSeries(self.lineSeries)
+        chart.createDefaultAxes()
+        chart.setTitle('output 1')
+
+        self.chartView = QChartView(chart)
+        self.chartView.setRenderHint(QPainter.Antialiasing)
+        #self.verticalWidgetChart.layout().addWidget(chartView)
+        self.OutputGraph1.set
+        #self.OutputGraph1.setCornerWidget(chartView)
+        #self.OutputGraph1.show()
+        '''
+
+    def addLineSeries(self, time_t, Out):
+        self.lineSeries.append(time_t, Out)
+
+    def drawChart(self):
+        chart = QChart()
+        chart.legend().hide()
+        chart.addSeries(self.lineSeries)
+        chart.createDefaultAxes()
+        chart.setTitle('output 1')
+        chartView = QChartView(chart)
+        chartView.setRenderHint(QPainter.Antialiasing)
+        NewWindow = WinForm()
+        NewWindow.setCentralWidget(chartView)
+        NewWindow.show()
+        self.window.append(NewWindow)
+        self.lineSeries = QLineSeries()
+
 
 if __name__ == '__main__':
     app=QApplication(sys.argv)
