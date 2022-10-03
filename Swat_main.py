@@ -69,7 +69,7 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.Plant.Actuator(self.IO_P1, self.IO_P2, self.IO_P3, self.IO_P4, self.IO_P5, self.IO_P6)
         Out1, Out2, Out3 = self.Plant.Plant(self.IO_P1, self.IO_P2, self.IO_P3, self.IO_P4, self.IO_P5, self.IO_P6, time_t, self.HMI)
         # #PLC working
-        self.addLineSeries(time_t, Out1)
+        self.addLineSeries(time_t, Out1, Out2, Out3)
         self.PLC1.Pre_Main_Raw_Water(self.IO_P1, self.HMI)
         self.PLC2.Pre_Main_UF_Feed_Dosing(self.IO_P2, self.HMI)
         self.PLC3.Pre_Main_UF_Feed(self.IO_P3, self.HMI, Sec_P, Min_P)
@@ -119,7 +119,9 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.timestamp += 1
 
     def createChart(self):
-        self.lineSeries = QLineSeries()
+        self.lineSeries1 = QLineSeries()
+        self.lineSeries2 = QLineSeries()
+        self.lineSeries3 = QLineSeries()
         '''
         chart = QChart()
         chart.legend().hide()
@@ -135,22 +137,57 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         #self.OutputGraph1.show()
         '''
 
-    def addLineSeries(self, time_t, Out):
-        self.lineSeries.append(time_t, Out)
+    def addLineSeries(self, time_t, Out1, Out2, Out3):
+        self.lineSeries1.append(time_t, Out1)
+        self.lineSeries2.append(time_t, Out2)
+        self.lineSeries3.append(time_t, Out3)
 
     def drawChart(self):
-        chart = QChart()
-        chart.legend().hide()
-        chart.addSeries(self.lineSeries)
-        chart.createDefaultAxes()
-        chart.setTitle('output 1')
-        chartView = QChartView(chart)
-        chartView.setRenderHint(QPainter.Antialiasing)
-        NewWindow = WinForm()
-        NewWindow.setCentralWidget(chartView)
-        NewWindow.show()
-        self.window.append(NewWindow)
-        self.lineSeries = QLineSeries()
+        chart1 = QChart()
+        chart1.legend().hide()
+        chart1.addSeries(self.lineSeries1)
+        chart1.createDefaultAxes()
+        chart1.setTitle('output 1')
+
+        chart2 = QChart()
+        chart2.legend().hide()
+        chart2.addSeries(self.lineSeries2)
+        chart2.createDefaultAxes()
+        chart2.setTitle('output 2')
+
+        chart3 = QChart()
+        chart3.legend().hide()
+        chart3.addSeries(self.lineSeries3)
+        chart3.createDefaultAxes()
+        chart3.setTitle('output 3')
+
+        chartView1 = QChartView(chart1)
+        chartView1.setRenderHint(QPainter.Antialiasing)
+        NewWindow1 = WinForm()
+        NewWindow1.setCentralWidget(chartView1)
+        NewWindow1.resize(450, 350)
+        NewWindow1.show()
+        self.window.append(NewWindow1)
+
+        chartView2 = QChartView(chart2)
+        chartView2.setRenderHint(QPainter.Antialiasing)
+        NewWindow2 = WinForm()
+        NewWindow2.setCentralWidget(chartView2)
+        NewWindow2.resize(450, 350)
+        NewWindow2.show()
+        self.window.append(NewWindow2)
+
+        chartView3 = QChartView(chart3)
+        chartView3.setRenderHint(QPainter.Antialiasing)
+        NewWindow3 = WinForm()
+        NewWindow3.setCentralWidget(chartView3)
+        NewWindow3.resize(450, 350)
+        NewWindow3.show()
+        self.window.append(NewWindow3)
+
+        self.lineSeries1 = QLineSeries()
+        self.lineSeries2 = QLineSeries()
+        self.lineSeries3 = QLineSeries()
 
 
 if __name__ == '__main__':
