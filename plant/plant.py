@@ -134,7 +134,7 @@ class plant:
 
 
         #print (self.result[k][0:3])
-        return self.result[k][0], self.result[k][1], self.result[k][3]
+        return self.result[k][0], self.result[k][1], self.result[k][2]
 
     def changeValueBF(self, result0, result1, result2, result3, result4, k): # Mr.Brute and Mr.Force, so BF :D
         self.result[k + 1][0] = result0

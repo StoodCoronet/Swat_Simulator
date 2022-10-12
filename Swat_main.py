@@ -26,7 +26,7 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         #layout.addWidget(self.btnStart,1,1)
 
         self.StartBtn.clicked.connect(self.slotRun)
-        self.StopBtn.clicked.connect(self.slotStop)
+        self.PauseBtn.clicked.connect(self.slotStop)
         self.StepBtn.clicked.connect(self.oneStep)
         self.ChangeVal.clicked.connect(self.changeValue)
         #self.setLayout(layout)
@@ -83,19 +83,22 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         #self.myLable.setText(str(tmp))
         QApplication.processEvents()
         #time.sleep(0.1)
-        if time_t == self.maxstep-1:
+        if time_t == self.maxstep - 1:
             self.isRunning = False
             self.timestamp = 0
             self.drawChart()
 
     def slotRun(self):
         if self.timestamp == 0:
-            self.maxstep = int(self.MaxStepVal.text())
+            self.maxstep = int(self.MaxStepVal.text()) + 1
+            self.MaxStepVal.setDisabled(True)
         self.isRunning = True
         while self.timestamp < self.maxstep:
             if self.isRunning:
                 self.slotAdd(self.timestamp)
                 self.timestamp += 1
+                if self.timestamp == self.maxstep - 1:
+                    self.MaxStepVal.setDisabled(False)
             else:
                 break
 
