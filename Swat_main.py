@@ -16,7 +16,7 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
     def __init__(self, parent=None):
         super(WinForm, self).__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle('example')
+        self.setWindowTitle('SWaT模拟器')
         #layout = QGridLayout()
 
         #self.myLable = QLabel('hello world', self)
@@ -77,16 +77,12 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         self.PLC5.Pre_Main_High_Pressure_RO(self.IO_P5, self.HMI, Sec_P, Min_P)
         self.PLC6.Pre_Main_Product(self.IO_P6, self.HMI)
         #print(tmp)
-        self.LabOutput1.setText(str(Out1))
-        self.LabOutput2.setText(str(Out2))
-        self.LabOutput3.setText(str(Out3))
+        self.ChangeVal0.setText(str(Out1))
+        self.ChangeVal1.setText(str(Out2))
+        self.ChangeVal2.setText(str(Out3))
         #self.myLable.setText(str(tmp))
         QApplication.processEvents()
         #time.sleep(0.1)
-        if time_t == self.maxstep - 1:
-            self.isRunning = False
-            self.timestamp = 0
-            self.drawChart()
 
     def slotRun(self):
         if self.timestamp == 0:
@@ -99,6 +95,9 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
                 self.timestamp += 1
                 if self.timestamp == self.maxstep - 1:
                     self.MaxStepVal.setDisabled(False)
+                    self.isRunning = False
+                    self.timestamp = 0
+                    self.drawChart()
             else:
                 break
 
@@ -113,32 +112,17 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
 
     def changeValue(self): # I don't know what's these values, just call it result#num
         self.isRunning = False
-        result0 = int(self.ChangeVal0.text())
-        result1 = int(self.ChangeVal1.text())
-        result2 = int(self.ChangeVal2.text())
-        result3 = int(self.ChangeVal3.text())
-        result4 = int(self.ChangeVal4.text())
-        self.Plant.changeValueBF(result0, result1, result2, result3, result4, self.timestamp)
+        result0 = float(self.ChangeVal0.text())
+        result1 = float(self.ChangeVal1.text())
+        result2 = float(self.ChangeVal2.text())
+        print(self.timestamp)
+        self.Plant.changeValueBF(result0, result1, result2, self.timestamp)
         self.timestamp += 1
 
     def createChart(self):
         self.lineSeries1 = QLineSeries()
         self.lineSeries2 = QLineSeries()
         self.lineSeries3 = QLineSeries()
-        '''
-        chart = QChart()
-        chart.legend().hide()
-        chart.addSeries(self.lineSeries)
-        chart.createDefaultAxes()
-        chart.setTitle('output 1')
-
-        self.chartView = QChartView(chart)
-        self.chartView.setRenderHint(QPainter.Antialiasing)
-        #self.verticalWidgetChart.layout().addWidget(chartView)
-        self.OutputGraph1.set
-        #self.OutputGraph1.setCornerWidget(chartView)
-        #self.OutputGraph1.show()
-        '''
 
     def addLineSeries(self, time_t, Out1, Out2, Out3):
         self.lineSeries1.append(time_t, Out1)
@@ -150,19 +134,19 @@ class WinForm(QMainWindow, SWaT.Ui_MainWindow):
         chart1.legend().hide()
         chart1.addSeries(self.lineSeries1)
         chart1.createDefaultAxes()
-        chart1.setTitle('output 1')
+        chart1.setTitle('水箱1液位')
 
         chart2 = QChart()
         chart2.legend().hide()
         chart2.addSeries(self.lineSeries2)
         chart2.createDefaultAxes()
-        chart2.setTitle('output 2')
+        chart2.setTitle('水箱3液位')
 
         chart3 = QChart()
         chart3.legend().hide()
         chart3.addSeries(self.lineSeries3)
         chart3.createDefaultAxes()
-        chart3.setTitle('output 3')
+        chart3.setTitle('水箱4液位')
 
         chartView1 = QChartView(chart1)
         chartView1.setRenderHint(QPainter.Antialiasing)
